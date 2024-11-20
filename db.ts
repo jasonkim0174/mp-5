@@ -1,9 +1,10 @@
 import { MongoClient, Db, Collection } from 'mongodb';
 
-const MONGO_URI = process.env.MONGO_URI as string;
-if (!MONGO_URI) {
-    throw new Error('MONGO_URI environment variable is not defined in .env.local');
+const MONGO_URI = process.env.MONGO_URI || 'placeholder-uri';
+if (!process.env.MONGO_URI && process.env.NODE_ENV === 'production') {
+    throw new Error('MONGO_URI environment variable is not defined in production.');
 }
+
 
 const DB_NAME = 'mp-5-alias-board';
 export const ARCHIVE_COLLECTION = 'alias-archive';
