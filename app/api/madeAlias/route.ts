@@ -2,6 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import getCollection from '@/db';
 
 export async function POST(req: NextRequest) {
+    if (!process.env.MONGO_URI) {
+        console.error('MONGO_URI is not defined in runtime');
+        return NextResponse.json(
+            { error: 'Environment variable not set. Cannot process request.' },
+            { status: 500 }
+        );
+    }
+
     try {
         const { alias, url } = await req.json();
 
@@ -25,7 +33,7 @@ export async function POST(req: NextRequest) {
         const existingAlias = await collection.findOne({ alias });
         if (existingAlias) {
             return NextResponse.json(
-                { error: 'Alias is already in use choose another one.' },
+                { error: 'Alias is already in use. Choose another one.' },
                 { status: 409 }
             );
         }
