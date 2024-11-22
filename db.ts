@@ -8,6 +8,7 @@ if (!MONGO_URI) {
 const DB_NAME = "mp-5-alias-board";
 export const ARCHIVE_COLLECTION = "alias-archive";
 
+
 let client: MongoClient | null = null;
 let db: Db | null = null;
 
