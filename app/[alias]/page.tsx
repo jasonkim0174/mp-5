@@ -5,6 +5,8 @@ interface PageProps {
     params: { alias: string };
 }
 
+export const dynamic = 'force-dynamic';
+
 export default async function AliasPage({ params }: PageProps) {
     const { alias } = params;
 
